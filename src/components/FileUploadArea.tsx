@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useState,
-  memo,
-  useRef,
-} from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState, memo, useRef } from "react";
 import axios from "axios";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { compact } from "lodash";
@@ -61,18 +54,14 @@ function FileUploadArea(props: FileUploadAreaProps) {
               const formData = new FormData();
               formData.append("file", file);
               formData.append("filename", file.name);
-
+              console.log(formData);
               try {
-                const processFileResponse = await axios.post(
-                  "/api/process-file",
-                  formData,
-                  {
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                    },
-                  }
-                );
-
+                const processFileResponse = await axios.post("/api/process-file", formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                });
+                console.log(processFileResponse);
                 if (processFileResponse.status === 200) {
                   const text = processFileResponse.data.text;
                   const meanEmbedding = processFileResponse.data.meanEmbedding;
@@ -165,12 +154,9 @@ function FileUploadArea(props: FileUploadAreaProps) {
             <div className="text-gray-500 flex flex-col items-center text-center">
               <ArrowUpTrayIcon className="w-7 h-7 mb-4" />
               <p className="mb-2 text-sm">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
+                <span className="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p className="text-xs">
-                TXT, PDF, DOCX or MD (max {props.maxFileSizeMB}MB per file)
-              </p>
+              <p className="text-xs">TXT, PDF, DOCX or MD (max {props.maxFileSizeMB}MB per file)</p>
               <p className="text-xs mt-1">
                 You can upload up to {props.maxNumFiles - files.length} more{" "}
                 {props.maxNumFiles - files.length === 1 ? "file" : "files"}
