@@ -164,6 +164,7 @@ function FileUploadArea(props: FileUploadAreaProps) {
               <input
                 id="dropzone-file"
                 type="file"
+                accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,application/msword,.txt,.md"
                 className="hidden"
                 multiple
                 onChange={(event) => handleFileChange(event.target.files)}
